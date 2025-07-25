@@ -65,9 +65,9 @@ sudo su - whattech
 mkdir -p /home/whattech/apps
 cd /home/whattech/apps
 
-# 克隆项目（替换为实际仓库地址）
-git clone <your-repository-url> what-tech-website
-cd what-tech-website/frontend
+# 克隆Frontend项目
+git clone https://github.com/YeZ-whatdesign/website-frontend.git what-tech-frontend
+cd what-tech-frontend
 ```
 
 #### 安装依赖
@@ -123,7 +123,7 @@ sudo nano /etc/nginx/sites-available/what-tech-frontend
 server {
     listen 80;
     server_name yourdomain.com www.yourdomain.com;  # 替换为实际域名
-    root /home/whattech/apps/what-tech-website/frontend/dist;
+    root /home/whattech/apps/what-tech-frontend/dist;
     index index.html;
 
     # 安全头
@@ -239,6 +239,8 @@ SSL配置后的Nginx配置会自动更新，包含以下内容：
 server {
     listen 443 ssl http2;
     server_name yourdomain.com www.yourdomain.com;
+    root /home/whattech/apps/what-tech-frontend/dist;
+    index index.html;
     
     ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
@@ -268,9 +270,9 @@ server {
 
 ```bash
 # 设置正确的文件权限
-sudo chown -R whattech:www-data /home/whattech/apps/what-tech-website/frontend/dist
-sudo chmod -R 755 /home/whattech/apps/what-tech-website/frontend/dist
-sudo find /home/whattech/apps/what-tech-website/frontend/dist -type f -exec chmod 644 {} \;
+sudo chown -R whattech:www-data /home/whattech/apps/what-tech-frontend/dist
+sudo chmod -R 755 /home/whattech/apps/what-tech-frontend/dist
+sudo find /home/whattech/apps/what-tech-frontend/dist -type f -exec chmod 644 {} \;
 ```
 
 ### 7. 防火墙配置
@@ -393,7 +395,7 @@ sudo netstat -tulpn | grep :443
 /home/whattech/deploy-frontend.sh
 
 # 或手动更新
-cd /home/whattech/apps/what-tech-website/frontend
+cd /home/whattech/apps/what-tech-frontend
 git pull origin main
 npm ci
 npm run build
