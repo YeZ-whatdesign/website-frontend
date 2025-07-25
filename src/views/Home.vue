@@ -13,7 +13,7 @@
           <li><a href="#training">培训服务</a></li>
           <li><a href="#blog">博客</a></li>
           <li><a href="#contact">联系我们</a></li>
-          <li><a href="http://forum.what-tech.cn" target="_blank">论坛</a></li>
+          <li><a href="http://what-tech.cn/forum" target="_blank">论坛</a></li>
         </ul>
         <div class="nav-toggle" @click="toggleMobileMenu">
           <span></span>
