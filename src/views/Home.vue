@@ -51,11 +51,11 @@
     </section>
 
     <!-- 关于我们 -->
-    <section id="about" class="about animate-section" data-animation="fade-up">
+    <section id="about" class="about">
       <div class="container">
-        <h2 class="animate-element" data-animation="fade-up" data-delay="0">{{ aboutData.title }}</h2>
+        <h2>{{ aboutData.title }}</h2>
         <div class="about-content">
-          <div class="about-text animate-element" data-animation="fade-left" data-delay="200">
+          <div class="about-text">
             <div class="company-logo">
               <img :src="aboutData.logo" alt="几何原本" />
             </div>
@@ -64,26 +64,26 @@
           </div>
           
           <!-- 服务内容 - 按照1.html的布局方式 -->
-          <div class="services-content-simple animate-element" data-animation="fade-right" data-delay="400">
-            <div class="service-simple-item animate-element" data-animation="fade-up" data-delay="600">
+          <div class="services-content-simple">
+            <div class="service-simple-item">
               <img src="/images/logo_CAS.png" alt="计算机辅助样式设计" />
               <h3>计算机辅助样式设计</h3>
               <p>基于丰富的三维想象力，利用先进的软件工具将设计概念转化为具体的三维设计并实现需要的造型样式。</p>
             </div>
             
-            <div class="service-simple-item animate-element" data-animation="fade-up" data-delay="700">
+            <div class="service-simple-item">
               <img src="/images/logo_Class-A.png" alt="Class-A曲面开发" />
               <h3>Class-A曲面开发</h3>
               <p>基于丰富的工程及美学经验，将概念模型开发为满足量产需求的高精度曲面造型数据。</p>
             </div>
             
-            <div class="service-simple-item animate-element" data-animation="fade-up" data-delay="800">
+            <div class="service-simple-item">
               <img src="/images/logo_Visualization.png" alt="实时产品可视化" />
               <h3>实时产品可视化</h3>
               <p>基于优美的展示呈现，利用精确的材质、逼真的光照还原产品设计真实的情感表达，辅助获得准确快速的设计决策。</p>
             </div>
             
-            <div class="service-simple-item animate-element" data-animation="fade-up" data-delay="900">
+            <div class="service-simple-item">
               <img src="/images/logo_Develop.png" alt="软件技术开发" />
               <h3>软件技术开发</h3>
               <p>基于与客户及软件技术巨头长年的合作，精通工业软件技术需求分析，并具备创新性的软件技术开发能力。</p>
@@ -94,20 +94,17 @@
     </section>
 
     <!-- 产品展示 -->
-    <section id="services" class="services animate-section" data-animation="fade-up">
+    <section id="services" class="services">
       <div class="container">
-        <h2 class="animate-element" data-animation="fade-up" data-delay="0">产品展示</h2>
+        <h2>产品展示</h2>
         <div class="services-content">
-          <div class="streaming-intro animate-element" data-animation="fade-up" data-delay="200">
+          <div class="streaming-intro">
             <h3>{{ streamingData.title }}</h3>
             <h4>{{ streamingData.subtitle }}</h4>
             <p>{{ streamingData.description }}</p>
           </div>
           <div class="streaming-solutions">
-            <div v-for="(solution, index) in streamingData.solutions" :key="solution.id" 
-                 class="solution-item animate-element" 
-                 data-animation="fade-up" 
-                 :data-delay="400 + index * 200">
+            <div v-for="(solution, index) in streamingData.solutions" :key="solution.id" class="uiverse-card uiverse-card-hover solution-item">
               <img :src="solution.image" :alt="solution.name" />
               <h5>{{ solution.name }}</h5>
               <p class="solution-scenarios">{{ solution.scenarios }}</p>
@@ -119,15 +116,12 @@
     </section>
 
     <!-- 客户案例 -->
-    <section id="cases" class="clients animate-section" data-animation="fade-up">
+    <section id="cases" class="clients">
       <div class="container">
-        <h2 class="animate-element" data-animation="fade-up" data-delay="0">{{ clientsData.title }}</h2>
-        <p class="section-subtitle animate-element" data-animation="fade-up" data-delay="100">{{ clientsData.subtitle }}</p>
+        <h2>{{ clientsData.title }}</h2>
+        <p class="section-subtitle">{{ clientsData.subtitle }}</p>
         <div class="clients-grid">
-          <div v-for="(client, index) in clientsData.clients" :key="client.id" 
-               class="client-item animate-element" 
-               data-animation="zoom-in" 
-               :data-delay="200 + index * 100">
+          <div v-for="(client, index) in clientsData.clients" :key="client.id" class="uiverse-card uiverse-card-hover client-item">
             <div class="client-logo">
               <img :src="client.logo" :alt="client.name" />
             </div>
@@ -140,14 +134,11 @@
     </section>
 
     <!-- 培训服务 -->
-    <section id="training" class="training animate-section" data-animation="fade-up">
+    <section id="training" class="training">
       <div class="container">
-        <h2 class="animate-element" data-animation="fade-up" data-delay="0">线下能力培训</h2>
+        <h2>线下能力培训</h2>
         <div class="training-grid">
-          <div v-for="(course, index) in trainingData" :key="course.id" 
-               class="training-item animate-element" 
-               data-animation="fade-up" 
-               :data-delay="200 + index * 200">
+          <div v-for="(course, index) in trainingData" :key="course.id" class="uiverse-card uiverse-card-hover training-item">
             <h3>{{ course.name }}</h3>
             <div class="price">{{ course.price }}</div>
             <ul class="features">
@@ -160,15 +151,11 @@
     </section>
 
     <!-- 博客模块 -->
-    <section id="blog" class="blog animate-section" data-animation="fade-up">
+    <section id="blog" class="blog">
       <div class="container">
-        <h2 class="animate-element" data-animation="fade-up" data-delay="0">最新博客</h2>
+        <h2>最新博客</h2>
         <div class="blog-grid">
-          <div v-for="(post, index) in blogData" :key="post.id" 
-               class="blog-item animate-element" 
-               data-animation="fade-up" 
-               :data-delay="200 + index * 200"
-               @click="goToBlogDetail(post.id)">
+          <div v-for="(post, index) in blogData" :key="post.id" class="uiverse-card uiverse-card-hover blog-item" @click="goToBlogDetail(post.id)">
             <img :src="post.image" :alt="post.title" />
             <div class="blog-content">
               <h4>{{ post.title }}</h4>
@@ -180,24 +167,21 @@
             </div>
           </div>
         </div>
-        <div class="blog-actions animate-element" data-animation="fade-up" data-delay="800">
+        <div class="blog-actions">
           <el-button type="primary" @click="goToBlogList">查看更多博客</el-button>
         </div>
       </div>
     </section>
 
     <!-- 加入我们 -->
-    <section id="careers" class="careers animate-section" data-animation="fade-up">
+    <section id="careers" class="careers">
       <div class="container">
-        <h2 class="animate-element" data-animation="fade-up" data-delay="0">{{ careersData.title }}</h2>
-        <p class="section-subtitle animate-element" data-animation="fade-up" data-delay="100">{{ careersData.subtitle }}</p>
+        <h2>{{ careersData.title }}</h2>
+        <p class="section-subtitle">{{ careersData.subtitle }}</p>
         
         <!-- 简化的职位列表 -->
         <div class="careers-simple">
-          <div v-for="(job, index) in careersData.jobs" :key="job.id" 
-               class="career-simple-item animate-element" 
-               data-animation="fade-up" 
-               :data-delay="200 + index * 200">
+          <div v-for="(job, index) in careersData.jobs" :key="job.id" class="uiverse-card uiverse-card-hover career-simple-item">
             <img :src="job.image" :alt="job.title" class="career-simple-image" />
             <h3 class="career-simple-title">{{ job.title }}</h3>
             
@@ -227,14 +211,12 @@
     </section>
 
     <!-- 客户感言 -->
-    <section class="testimonials animate-section" data-animation="fade-up">
+    <section class="testimonials">
       <div class="container">
-        <h2 class="animate-element" data-animation="fade-up" data-delay="0">客户感言</h2>
+        <h2>客户感言</h2>
         <div class="testimonials-slider">
           <div v-for="(testimonial, index) in testimonialsData" :key="testimonial.id" 
-               class="testimonial-item animate-element" 
-               data-animation="fade-up" 
-               :data-delay="200 + index * 300">
+               class="testimonial-item">
             <div class="quote-icon">
               <el-icon><ChatDotRound /></el-icon>
             </div>
@@ -252,31 +234,31 @@
     </section>
 
     <!-- 联系我们 -->
-    <section id="contact" class="contact animate-section" data-animation="fade-up">
+    <section id="contact" class="contact">
       <div class="container">
-        <h2 class="animate-element" data-animation="fade-up" data-delay="0">联系我们</h2>
+        <h2>联系我们</h2>
         <div class="contact-content">
-          <div class="contact-info animate-element" data-animation="fade-left" data-delay="200">
-            <div class="contact-item animate-element" data-animation="fade-up" data-delay="400">
+          <div class="contact-info">
+            <div class="contact-item">
               <h4>电话号码</h4>
               <p><a href="tel:+8613817009133">培训报名</a></p>
               <p><a href="tel:+8613817009133">联系热线</a></p>
             </div>
-            <div class="contact-item animate-element" data-animation="fade-up" data-delay="500">
+            <div class="contact-item">
               <h4>电子邮箱</h4>
               <p><a href="mailto:hello@what-design.cn">培训咨询</a></p>
               <p><a href="mailto:sales@what-design.cn">业务咨询</a></p>
             </div>
-            <div class="contact-item animate-element" data-animation="fade-up" data-delay="600">
+            <div class="contact-item">
               <h4>地址</h4>
               <p>上海·嘉定<br>安亭新镇·万创坊·526</p>
             </div>
-            <div class="contact-item animate-element" data-animation="fade-up" data-delay="700">
+            <div class="contact-item">
               <h4>工作时间</h4>
               <p>GMT+8 9:00am – 6:00pm<br>GMT+5.5 5:30am – 2:30pm</p>
             </div>
           </div>
-          <div class="contact-form animate-element" data-animation="fade-right" data-delay="200">
+          <div class="contact-form">
             <h3>与我们联系</h3>
             <el-form :model="contactForm" label-position="top">
               <el-form-item label="姓名">
@@ -416,146 +398,6 @@ export default {
       message: '',
       position: ''
     })
-
-    // 初始化滚动动画
-    const initScrollAnimations = () => {
-      // 创建 Intersection Observer
-      observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const element = entry.target
-            const animation = element.dataset.animation
-            const delay = element.dataset.delay || 0
-            
-            // 添加延迟后触发动画
-            setTimeout(() => {
-              element.classList.add('animate-visible')
-              element.classList.add(`animate-${animation}`)
-            }, parseInt(delay))
-            
-            // 停止观察已经动画的元素
-            observer.unobserve(element)
-          }
-        })
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      })
-
-      // 观察所有需要动画的元素
-      const animateElements = document.querySelectorAll('.animate-section, .animate-element')
-      animateElements.forEach(element => {
-        observer.observe(element)
-      })
-    }
-
-    // 粒子类
-    class Particle {
-      constructor(canvas) {
-        this.canvas = canvas
-        this.reset()
-        this.y = Math.random() * canvas.height
-        this.fadeDelay = Math.random() * 600
-        this.fadeStart = Date.now() + this.fadeDelay
-        this.fadingIn = true
-      }
-
-      reset() {
-        this.x = Math.random() * this.canvas.width
-        this.y = -10
-        this.speed = 0.5 + Math.random() * 2
-        this.opacity = 0
-        this.fadeDelay = Math.random() * 600
-        this.fadeStart = Date.now() + this.fadeDelay
-        this.fadingIn = true
-      }
-
-      update() {
-        const now = Date.now()
-        
-        if (this.fadingIn) {
-          if (now > this.fadeStart) {
-            this.opacity += 0.005
-            if (this.opacity >= 0.4) {
-              this.opacity = 0.4
-              this.fadingIn = false
-            }
-          }
-        } else {
-          this.opacity -= 0.003
-          if (this.opacity <= 0) {
-            this.reset()
-          }
-        }
-
-        this.y += this.speed
-        if (this.y > this.canvas.height + 10) {
-          this.reset()
-        }
-      }
-
-      draw(ctx) {
-        if (this.opacity > 0) {
-          ctx.save()
-          ctx.globalAlpha = this.opacity
-          ctx.fillStyle = '#ffffff'
-          ctx.shadowBlur = 10
-          ctx.shadowColor = '#ffffff'
-          ctx.beginPath()
-          ctx.arc(this.x, this.y, 1, 0, Math.PI * 2)
-          ctx.fill()
-          ctx.restore()
-        }
-      }
-    }
-
-    // 初始化粒子效果
-    const initParticles = () => {
-      if (!particlesCanvas.value || !particlesContainer.value) return
-
-      const canvas = particlesCanvas.value
-      const ctx = canvas.getContext('2d')
-      
-      // 设置canvas尺寸
-      const resizeCanvas = () => {
-        const container = particlesContainer.value
-        canvas.width = container.offsetWidth
-        canvas.height = container.offsetHeight
-      }
-
-      resizeCanvas()
-      window.addEventListener('resize', resizeCanvas)
-
-      // 创建粒子
-      const particleCount = Math.floor((canvas.width * canvas.height) / 15000)
-      particles = []
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle(canvas))
-      }
-
-      // 动画循环
-      const animate = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        
-        particles.forEach(particle => {
-          particle.update()
-          particle.draw(ctx)
-        })
-
-        particlesAnimation = requestAnimationFrame(animate)
-      }
-
-      animate()
-    }
-
-    // 清理粒子效果
-    const cleanupParticles = () => {
-      if (particlesAnimation) {
-        cancelAnimationFrame(particlesAnimation)
-        particlesAnimation = null
-      }
-      particles = []
-    }
 
     // 页面数据
     const heroData = ref({
@@ -920,23 +762,42 @@ export default {
       }
     }
 
+    let cardObserver = null
+    // 卡片滚动动画
+    const initCardScrollAnimations = () => {
+      cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('uiverse-card-visible')
+            entry.target.classList.remove('uiverse-card-hide')
+            cardObserver.unobserve(entry.target)
+          }
+        })
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      })
+      const cards = document.querySelectorAll('.uiverse-card')
+      cards.forEach(card => {
+        card.classList.add('uiverse-card-hide')
+        cardObserver.observe(card)
+      })
+    }
+
     onMounted(() => {
       loadCMSData()
       loadBlogData()
       // 延迟初始化动画，确保DOM已渲染
       setTimeout(() => {
-        initScrollAnimations()
         initParticles()
+        initCardScrollAnimations()
       }, 100)
     })
 
     onUnmounted(() => {
-      // 清理 observer
-      if (observer) {
-        observer.disconnect()
-      }
       // 清理粒子效果
       cleanupParticles()
+      if (cardObserver) cardObserver.disconnect()
     })
 
     return {
@@ -2157,5 +2018,45 @@ button.animate-element:hover {
     opacity: 1;
     transform: none;
   }
+}
+
+/* uiverse.io 卡片动画样式 */
+.uiverse-card {
+  background: #18181b;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10), 0 1.5px 6px rgba(0,0,0,0.10);
+  transition: transform 0.35s cubic-bezier(.21,1.02,.73,1), box-shadow 0.35s cubic-bezier(.21,1.02,.73,1), filter 0.35s;
+  will-change: transform, box-shadow, filter;
+  position: relative;
+  overflow: hidden;
+}
+.uiverse-card-hover:hover {
+  transform: translateY(-10px) scale(1.04) rotateX(4deg) rotateY(-4deg);
+  box-shadow: 0 12px 32px 0 rgba(41,171,193,0.18), 0 2px 8px rgba(0,0,0,0.10);
+  filter: brightness(1.08) saturate(1.1);
+  z-index: 2;
+}
+.uiverse-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 16px;
+  background: linear-gradient(120deg,rgba(41,171,193,0.18) 0%,rgba(255,255,255,0.08) 100%);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.uiverse-card-hover:hover::before {
+  opacity: 1;
+}
+
+.uiverse-card-hide {
+  opacity: 0;
+  transform: translateY(60px) scale(0.98);
+  transition: opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.uiverse-card-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 </style>
