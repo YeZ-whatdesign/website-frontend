@@ -706,8 +706,9 @@ export default {
           blogData.value = response.data.posts.map(post => {
             // 将完整URL转换为相对路径以使用代理
             let imageUrl = post.image || '/images/default-blog.jpg'
-            if (imageUrl.startsWith('http://localhost:3001')) {
-              imageUrl = imageUrl.replace('http://localhost:3001', '')
+            const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'
+            if (imageUrl.startsWith(apiBaseUrl)) {
+              imageUrl = imageUrl.replace(apiBaseUrl, '')
             }
             
             return {
