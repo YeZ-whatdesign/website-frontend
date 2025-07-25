@@ -263,7 +263,7 @@ const editingBlog = ref({
 })
 
 // 上传相关
-const uploadUrl = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'}/api/cms/upload`
+const uploadUrl = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'}/cms/upload`
 const uploadHeaders = ref({})
 
 // 更新上传headers
