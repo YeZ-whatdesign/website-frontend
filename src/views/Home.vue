@@ -27,6 +27,10 @@
     <section class="hero">
       <div class="hero-background">
         <div class="hero-overlay"></div>
+        <!-- 粒子效果容器 -->
+        <div class="particles-container" ref="particlesContainer">
+          <canvas ref="particlesCanvas" class="particles-canvas"></canvas>
+        </div>
       </div>
       <div class="hero-container">
         <div class="hero-content">
@@ -47,11 +51,11 @@
     </section>
 
     <!-- 关于我们 -->
-    <section id="about" class="about">
+    <section id="about" class="about animate-section" data-animation="fade-up">
       <div class="container">
-        <h2>{{ aboutData.title }}</h2>
+        <h2 class="animate-element" data-animation="fade-up" data-delay="0">{{ aboutData.title }}</h2>
         <div class="about-content">
-          <div class="about-text">
+          <div class="about-text animate-element" data-animation="fade-left" data-delay="200">
             <div class="company-logo">
               <img :src="aboutData.logo" alt="几何原本" />
             </div>
@@ -60,26 +64,26 @@
           </div>
           
           <!-- 服务内容 - 按照1.html的布局方式 -->
-          <div class="services-content-simple">
-            <div class="service-simple-item">
+          <div class="services-content-simple animate-element" data-animation="fade-right" data-delay="400">
+            <div class="service-simple-item animate-element" data-animation="fade-up" data-delay="600">
               <img src="/images/logo_CAS.png" alt="计算机辅助样式设计" />
               <h3>计算机辅助样式设计</h3>
               <p>基于丰富的三维想象力，利用先进的软件工具将设计概念转化为具体的三维设计并实现需要的造型样式。</p>
             </div>
             
-            <div class="service-simple-item">
+            <div class="service-simple-item animate-element" data-animation="fade-up" data-delay="700">
               <img src="/images/logo_Class-A.png" alt="Class-A曲面开发" />
               <h3>Class-A曲面开发</h3>
               <p>基于丰富的工程及美学经验，将概念模型开发为满足量产需求的高精度曲面造型数据。</p>
             </div>
             
-            <div class="service-simple-item">
+            <div class="service-simple-item animate-element" data-animation="fade-up" data-delay="800">
               <img src="/images/logo_Visualization.png" alt="实时产品可视化" />
               <h3>实时产品可视化</h3>
               <p>基于优美的展示呈现，利用精确的材质、逼真的光照还原产品设计真实的情感表达，辅助获得准确快速的设计决策。</p>
             </div>
             
-            <div class="service-simple-item">
+            <div class="service-simple-item animate-element" data-animation="fade-up" data-delay="900">
               <img src="/images/logo_Develop.png" alt="软件技术开发" />
               <h3>软件技术开发</h3>
               <p>基于与客户及软件技术巨头长年的合作，精通工业软件技术需求分析，并具备创新性的软件技术开发能力。</p>
@@ -90,17 +94,20 @@
     </section>
 
     <!-- 产品展示 -->
-    <section id="services" class="services">
+    <section id="services" class="services animate-section" data-animation="fade-up">
       <div class="container">
-        <h2>产品展示</h2>
+        <h2 class="animate-element" data-animation="fade-up" data-delay="0">产品展示</h2>
         <div class="services-content">
-          <div class="streaming-intro">
+          <div class="streaming-intro animate-element" data-animation="fade-up" data-delay="200">
             <h3>{{ streamingData.title }}</h3>
             <h4>{{ streamingData.subtitle }}</h4>
             <p>{{ streamingData.description }}</p>
           </div>
           <div class="streaming-solutions">
-            <div v-for="solution in streamingData.solutions" :key="solution.id" class="solution-item">
+            <div v-for="(solution, index) in streamingData.solutions" :key="solution.id" 
+                 class="solution-item animate-element" 
+                 data-animation="fade-up" 
+                 :data-delay="400 + index * 200">
               <img :src="solution.image" :alt="solution.name" />
               <h5>{{ solution.name }}</h5>
               <p class="solution-scenarios">{{ solution.scenarios }}</p>
@@ -112,12 +119,15 @@
     </section>
 
     <!-- 客户案例 -->
-    <section id="cases" class="clients">
+    <section id="cases" class="clients animate-section" data-animation="fade-up">
       <div class="container">
-        <h2>{{ clientsData.title }}</h2>
-        <p class="section-subtitle">{{ clientsData.subtitle }}</p>
+        <h2 class="animate-element" data-animation="fade-up" data-delay="0">{{ clientsData.title }}</h2>
+        <p class="section-subtitle animate-element" data-animation="fade-up" data-delay="100">{{ clientsData.subtitle }}</p>
         <div class="clients-grid">
-          <div v-for="client in clientsData.clients" :key="client.id" class="client-item">
+          <div v-for="(client, index) in clientsData.clients" :key="client.id" 
+               class="client-item animate-element" 
+               data-animation="zoom-in" 
+               :data-delay="200 + index * 100">
             <div class="client-logo">
               <img :src="client.logo" :alt="client.name" />
             </div>
@@ -130,11 +140,14 @@
     </section>
 
     <!-- 培训服务 -->
-    <section id="training" class="training">
+    <section id="training" class="training animate-section" data-animation="fade-up">
       <div class="container">
-        <h2>线下能力培训</h2>
+        <h2 class="animate-element" data-animation="fade-up" data-delay="0">线下能力培训</h2>
         <div class="training-grid">
-          <div v-for="course in trainingData" :key="course.id" class="training-item">
+          <div v-for="(course, index) in trainingData" :key="course.id" 
+               class="training-item animate-element" 
+               data-animation="fade-up" 
+               :data-delay="200 + index * 200">
             <h3>{{ course.name }}</h3>
             <div class="price">{{ course.price }}</div>
             <ul class="features">
@@ -147,16 +160,15 @@
     </section>
 
     <!-- 博客模块 -->
-    <section id="blog" class="blog">
+    <section id="blog" class="blog animate-section" data-animation="fade-up">
       <div class="container">
-        <h2>最新博客</h2>
+        <h2 class="animate-element" data-animation="fade-up" data-delay="0">最新博客</h2>
         <div class="blog-grid">
-          <div 
-            v-for="post in blogData" 
-            :key="post.id" 
-            class="blog-item"
-            @click="goToBlogDetail(post.id)"
-          >
+          <div v-for="(post, index) in blogData" :key="post.id" 
+               class="blog-item animate-element" 
+               data-animation="fade-up" 
+               :data-delay="200 + index * 200"
+               @click="goToBlogDetail(post.id)">
             <img :src="post.image" :alt="post.title" />
             <div class="blog-content">
               <h4>{{ post.title }}</h4>
@@ -168,21 +180,24 @@
             </div>
           </div>
         </div>
-        <div class="blog-actions">
+        <div class="blog-actions animate-element" data-animation="fade-up" data-delay="800">
           <el-button type="primary" @click="goToBlogList">查看更多博客</el-button>
         </div>
       </div>
     </section>
 
     <!-- 加入我们 -->
-    <section id="careers" class="careers">
+    <section id="careers" class="careers animate-section" data-animation="fade-up">
       <div class="container">
-        <h2>{{ careersData.title }}</h2>
-        <p class="section-subtitle">{{ careersData.subtitle }}</p>
+        <h2 class="animate-element" data-animation="fade-up" data-delay="0">{{ careersData.title }}</h2>
+        <p class="section-subtitle animate-element" data-animation="fade-up" data-delay="100">{{ careersData.subtitle }}</p>
         
         <!-- 简化的职位列表 -->
         <div class="careers-simple">
-          <div v-for="job in careersData.jobs" :key="job.id" class="career-simple-item">
+          <div v-for="(job, index) in careersData.jobs" :key="job.id" 
+               class="career-simple-item animate-element" 
+               data-animation="fade-up" 
+               :data-delay="200 + index * 200">
             <img :src="job.image" :alt="job.title" class="career-simple-image" />
             <h3 class="career-simple-title">{{ job.title }}</h3>
             
@@ -212,11 +227,14 @@
     </section>
 
     <!-- 客户感言 -->
-    <section class="testimonials">
+    <section class="testimonials animate-section" data-animation="fade-up">
       <div class="container">
-        <h2>客户感言</h2>
+        <h2 class="animate-element" data-animation="fade-up" data-delay="0">客户感言</h2>
         <div class="testimonials-slider">
-          <div v-for="testimonial in testimonialsData" :key="testimonial.id" class="testimonial-item">
+          <div v-for="(testimonial, index) in testimonialsData" :key="testimonial.id" 
+               class="testimonial-item animate-element" 
+               data-animation="fade-up" 
+               :data-delay="200 + index * 300">
             <div class="quote-icon">
               <el-icon><ChatDotRound /></el-icon>
             </div>
@@ -234,31 +252,31 @@
     </section>
 
     <!-- 联系我们 -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact animate-section" data-animation="fade-up">
       <div class="container">
-        <h2>联系我们</h2>
+        <h2 class="animate-element" data-animation="fade-up" data-delay="0">联系我们</h2>
         <div class="contact-content">
-          <div class="contact-info">
-            <div class="contact-item">
+          <div class="contact-info animate-element" data-animation="fade-left" data-delay="200">
+            <div class="contact-item animate-element" data-animation="fade-up" data-delay="400">
               <h4>电话号码</h4>
               <p><a href="tel:+8613817009133">培训报名</a></p>
               <p><a href="tel:+8613817009133">联系热线</a></p>
             </div>
-            <div class="contact-item">
+            <div class="contact-item animate-element" data-animation="fade-up" data-delay="500">
               <h4>电子邮箱</h4>
               <p><a href="mailto:hello@what-design.cn">培训咨询</a></p>
               <p><a href="mailto:sales@what-design.cn">业务咨询</a></p>
             </div>
-            <div class="contact-item">
+            <div class="contact-item animate-element" data-animation="fade-up" data-delay="600">
               <h4>地址</h4>
               <p>上海·嘉定<br>安亭新镇·万创坊·526</p>
             </div>
-            <div class="contact-item">
+            <div class="contact-item animate-element" data-animation="fade-up" data-delay="700">
               <h4>工作时间</h4>
               <p>GMT+8 9:00am – 6:00pm<br>GMT+5.5 5:30am – 2:30pm</p>
             </div>
           </div>
-          <div class="contact-form">
+          <div class="contact-form animate-element" data-animation="fade-right" data-delay="200">
             <h3>与我们联系</h3>
             <el-form :model="contactForm" label-position="top">
               <el-form-item label="姓名">
@@ -348,7 +366,7 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { ChatDotRound } from '@element-plus/icons-vue'
@@ -364,6 +382,15 @@ export default {
     const trainingDialogVisible = ref(false)
     const jobDialogVisible = ref(false)
     const selectedJobTitle = ref('')
+    
+    // 粒子效果相关
+    const particlesContainer = ref(null)
+    const particlesCanvas = ref(null)
+    let particlesAnimation = null
+    let particles = []
+    
+    // 滚动动画相关
+    let observer = null
     
     // 表单数据
     const contactForm = reactive({
@@ -389,6 +416,146 @@ export default {
       message: '',
       position: ''
     })
+
+    // 初始化滚动动画
+    const initScrollAnimations = () => {
+      // 创建 Intersection Observer
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target
+            const animation = element.dataset.animation
+            const delay = element.dataset.delay || 0
+            
+            // 添加延迟后触发动画
+            setTimeout(() => {
+              element.classList.add('animate-visible')
+              element.classList.add(`animate-${animation}`)
+            }, parseInt(delay))
+            
+            // 停止观察已经动画的元素
+            observer.unobserve(element)
+          }
+        })
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      })
+
+      // 观察所有需要动画的元素
+      const animateElements = document.querySelectorAll('.animate-section, .animate-element')
+      animateElements.forEach(element => {
+        observer.observe(element)
+      })
+    }
+
+    // 粒子类
+    class Particle {
+      constructor(canvas) {
+        this.canvas = canvas
+        this.reset()
+        this.y = Math.random() * canvas.height
+        this.fadeDelay = Math.random() * 600
+        this.fadeStart = Date.now() + this.fadeDelay
+        this.fadingIn = true
+      }
+
+      reset() {
+        this.x = Math.random() * this.canvas.width
+        this.y = -10
+        this.speed = 0.5 + Math.random() * 2
+        this.opacity = 0
+        this.fadeDelay = Math.random() * 600
+        this.fadeStart = Date.now() + this.fadeDelay
+        this.fadingIn = true
+      }
+
+      update() {
+        const now = Date.now()
+        
+        if (this.fadingIn) {
+          if (now > this.fadeStart) {
+            this.opacity += 0.005
+            if (this.opacity >= 0.4) {
+              this.opacity = 0.4
+              this.fadingIn = false
+            }
+          }
+        } else {
+          this.opacity -= 0.003
+          if (this.opacity <= 0) {
+            this.reset()
+          }
+        }
+
+        this.y += this.speed
+        if (this.y > this.canvas.height + 10) {
+          this.reset()
+        }
+      }
+
+      draw(ctx) {
+        if (this.opacity > 0) {
+          ctx.save()
+          ctx.globalAlpha = this.opacity
+          ctx.fillStyle = '#ffffff'
+          ctx.shadowBlur = 10
+          ctx.shadowColor = '#ffffff'
+          ctx.beginPath()
+          ctx.arc(this.x, this.y, 1, 0, Math.PI * 2)
+          ctx.fill()
+          ctx.restore()
+        }
+      }
+    }
+
+    // 初始化粒子效果
+    const initParticles = () => {
+      if (!particlesCanvas.value || !particlesContainer.value) return
+
+      const canvas = particlesCanvas.value
+      const ctx = canvas.getContext('2d')
+      
+      // 设置canvas尺寸
+      const resizeCanvas = () => {
+        const container = particlesContainer.value
+        canvas.width = container.offsetWidth
+        canvas.height = container.offsetHeight
+      }
+
+      resizeCanvas()
+      window.addEventListener('resize', resizeCanvas)
+
+      // 创建粒子
+      const particleCount = Math.floor((canvas.width * canvas.height) / 15000)
+      particles = []
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle(canvas))
+      }
+
+      // 动画循环
+      const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        
+        particles.forEach(particle => {
+          particle.update()
+          particle.draw(ctx)
+        })
+
+        particlesAnimation = requestAnimationFrame(animate)
+      }
+
+      animate()
+    }
+
+    // 清理粒子效果
+    const cleanupParticles = () => {
+      if (particlesAnimation) {
+        cancelAnimationFrame(particlesAnimation)
+        particlesAnimation = null
+      }
+      particles = []
+    }
 
     // 页面数据
     const heroData = ref({
@@ -756,15 +923,35 @@ export default {
     onMounted(() => {
       loadCMSData()
       loadBlogData()
+      // 延迟初始化动画，确保DOM已渲染
+      setTimeout(() => {
+        initScrollAnimations()
+        initParticles()
+      }, 100)
+    })
+
+    onUnmounted(() => {
+      // 清理 observer
+      if (observer) {
+        observer.disconnect()
+      }
+      // 清理粒子效果
+      cleanupParticles()
     })
 
     return {
+      // 粒子效果引用
+      particlesContainer,
+      particlesCanvas,
+      // 对话框状态
       trainingDialogVisible,
       jobDialogVisible,
       selectedJobTitle,
+      // 表单数据
       contactForm,
       trainingForm,
       jobForm,
+      // 页面数据
       heroData,
       aboutData,
       streamingData,
@@ -773,6 +960,7 @@ export default {
       blogData,
       testimonialsData,
       careersData,
+      // 方法
       scrollToSection,
       toggleMobileMenu,
       openTrainingForm,
@@ -891,6 +1079,23 @@ export default {
     rgba(0, 0, 0, 0.3) 100%
   );
   z-index: 2;
+}
+
+/* 粒子效果样式 */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.particles-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .hero-container {
@@ -1704,6 +1909,253 @@ section h2 {
   
   section {
     padding: 3rem 0;
+  }
+}
+
+/* 滚动动画样式 - 优化缓动效果 */
+.animate-section,
+.animate-element {
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.animate-visible {
+  opacity: 1;
+}
+
+/* 淡入向上动画 - 优雅的缓动 */
+.animate-fade-up {
+  transform: translateY(60px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-visible.animate-fade-up {
+  transform: translateY(0);
+}
+
+/* 淡入向左动画 - 流畅的滑动 */
+.animate-fade-left {
+  transform: translateX(80px);
+  transition: opacity 1.1s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 1.1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animate-visible.animate-fade-left {
+  transform: translateX(0);
+}
+
+/* 淡入向右动画 - 流畅的滑动 */
+.animate-fade-right {
+  transform: translateX(-80px);
+  transition: opacity 1.1s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 1.1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animate-visible.animate-fade-right {
+  transform: translateX(0);
+}
+
+/* 缩放动画 - 自然的缩放效果 */
+.animate-zoom-in {
+  transform: scale(0.85);
+  transition: opacity 1.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 1.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-visible.animate-zoom-in {
+  transform: scale(1);
+}
+
+/* 旋转淡入动画 - 优雅的旋转 */
+.animate-rotate-in {
+  transform: rotate(-15deg) scale(0.85);
+  transition: opacity 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              transform 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.animate-visible.animate-rotate-in {
+  transform: rotate(0deg) scale(1);
+}
+
+/* 弹跳动画 - 更自然的弹性效果 */
+.animate-bounce-in {
+  transform: scale(0.4);
+  transition: opacity 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+              transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-visible.animate-bounce-in {
+  transform: scale(1);
+}
+
+/* 滑入动画 - 平滑的滑动效果 */
+.animate-slide-in-left {
+  transform: translateX(-120px);
+  transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1),
+              transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.animate-visible.animate-slide-in-left {
+  transform: translateX(0);
+}
+
+.animate-slide-in-right {
+  transform: translateX(120px);
+  transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1),
+              transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.animate-visible.animate-slide-in-right {
+  transform: translateX(0);
+}
+
+/* 翻转动画 - 3D翻转效果 */
+.animate-flip-in {
+  transform: perspective(600px) rotateY(90deg);
+  transition: opacity 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-visible.animate-flip-in {
+  transform: perspective(600px) rotateY(0deg);
+}
+
+/* 特殊效果：为不同类型的元素添加不同的动画延迟和缓动 */
+.service-simple-item.animate-element {
+  transition-delay: 0.1s;
+  transition: opacity 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s,
+              transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+}
+
+.client-item.animate-element {
+  transition-delay: 0.05s;
+  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.05s,
+              transform 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.05s;
+}
+
+.blog-item.animate-element {
+  transition-delay: 0.15s;
+  transition: opacity 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s,
+              transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s;
+}
+
+.training-item.animate-element {
+  transition-delay: 0.2s;
+  transition: opacity 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s,
+              transform 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s;
+}
+
+/* 悬停增强效果 - 更流畅的交互 */
+.animate-visible .service-simple-item,
+.animate-visible .client-item,
+.animate-visible .blog-item,
+.animate-visible .training-item {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-visible .service-simple-item:hover,
+.animate-visible .client-item:hover,
+.animate-visible .blog-item:hover,
+.animate-visible .training-item:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.05);
+}
+
+/* 为标题和文本添加特殊的缓动效果 */
+h1.animate-element,
+h2.animate-element,
+h3.animate-element {
+  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+p.animate-element,
+.animate-element p {
+  transition: opacity 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 按钮的特殊动画效果 */
+.btn.animate-element,
+button.animate-element {
+  transition: opacity 1.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn.animate-element:hover,
+button.animate-element:hover {
+  transform: translateY(-3px) scale(1.05);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 减少动画在移动设备上的复杂度 - 优化缓动 */
+@media (max-width: 768px) {
+  .animate-section,
+  .animate-element {
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .animate-fade-up,
+  .animate-fade-left,
+  .animate-fade-right {
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+                transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .animate-visible.animate-fade-left,
+  .animate-visible.animate-fade-right {
+    transform: translateY(0);
+  }
+  
+  /* 移动设备上简化复杂动画 */
+  .animate-zoom-in,
+  .animate-rotate-in,
+  .animate-bounce-in {
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .animate-slide-in-left,
+  .animate-slide-in-right {
+    transform: translateX(0);
+    transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .animate-flip-in {
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .animate-visible.animate-flip-in {
+    transform: translateY(0);
+  }
+  
+  /* 移动设备上的悬停效果简化 */
+  .animate-visible .service-simple-item:hover,
+  .animate-visible .client-item:hover,
+  .animate-visible .blog-item:hover,
+  .animate-visible .training-item:hover {
+    transform: translateY(-5px) scale(1.01);
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+/* 为支持 prefers-reduced-motion 的用户禁用动画 */
+@media (prefers-reduced-motion: reduce) {
+  .animate-section,
+  .animate-element {
+    transition: none;
+    opacity: 1;
+    transform: none;
   }
 }
 </style>
