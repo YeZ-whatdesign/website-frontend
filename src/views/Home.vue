@@ -6,14 +6,14 @@
         <div class="nav-logo">
           <img src="/images/logo_198x72.png" alt="几何原本" />
         </div>
-        <ul class="nav-menu">
-          <li><a href="#about">关于我们</a></li>
-          <li><a href="#services">产品展示</a></li>
-          <li><a href="#cases">客户案例</a></li>
-          <li><a href="#training">培训服务</a></li>
-          <li><a href="#blog">博客</a></li>
-          <li><a href="#contact">联系我们</a></li>
-          <li><a href="http://what-tech.cn/forum" target="_blank">论坛</a></li>
+        <ul class="nav-menu" :class="{ 'nav-menu-mobile': mobileMenuOpen }">
+          <li><a href="#about" @click="scrollToSection('about'); mobileMenuOpen = false">关于我们</a></li>
+          <li><a href="#services" @click="scrollToSection('services'); mobileMenuOpen = false">产品展示</a></li>
+          <li><a href="#cases" @click="scrollToSection('cases'); mobileMenuOpen = false">客户案例</a></li>
+          <li><a href="#training" @click="scrollToSection('training'); mobileMenuOpen = false">培训服务</a></li>
+          <li><a href="#contact" @click="scrollToSection('contact'); mobileMenuOpen = false">联系我们</a></li>
+          <li><a href="//blog.what-tech.cn" target="_blank" @click="mobileMenuOpen = false">博客</a></li>
+          <li><a href="//forum.what-tech.cn" target="_blank" @click="mobileMenuOpen = false">论坛</a></li>
         </ul>
         <div class="nav-toggle" @click="toggleMobileMenu">
           <span></span>
@@ -364,6 +364,7 @@ export default {
     const trainingDialogVisible = ref(false)
     const jobDialogVisible = ref(false)
     const selectedJobTitle = ref('')
+    const mobileMenuOpen = ref(false)
     
     // 粒子效果相关
     const particlesContainer = ref(null)
@@ -635,7 +636,7 @@ export default {
     }
 
     const toggleMobileMenu = () => {
-      // 移动端菜单切换逻辑
+      mobileMenuOpen.value = !mobileMenuOpen.value
     }
 
     const openTrainingForm = () => {
@@ -682,7 +683,8 @@ export default {
 
     // 博客跳转方法
     const goToBlogList = () => {
-      router.push('/blog')
+      // router.push('/blog')
+      window.open('//blog.what-tech.cn')
     }
 
     const goToBlogDetail = (id) => {
@@ -784,6 +786,20 @@ export default {
       })
     }
 
+    // 点击外部关闭移动端菜单
+    const handleClickOutside = (event) => {
+      const navMenu = document.querySelector('.nav-menu')
+      const navToggle = document.querySelector('.nav-toggle')
+      
+      if (mobileMenuOpen.value && 
+          navMenu && 
+          !navMenu.contains(event.target) && 
+          navToggle && 
+          !navToggle.contains(event.target)) {
+        mobileMenuOpen.value = false
+      }
+    }
+
     onMounted(() => {
       loadCMSData()
       loadBlogData()
@@ -792,12 +808,18 @@ export default {
         initParticles()
         initCardScrollAnimations()
       }, 100)
+      
+      // 添加点击外部关闭菜单的事件监听
+      document.addEventListener('click', handleClickOutside)
     })
 
     onUnmounted(() => {
       // 清理粒子效果
       cleanupParticles()
       if (cardObserver) cardObserver.disconnect()
+      
+      // 移除事件监听
+      document.removeEventListener('click', handleClickOutside)
     })
 
     return {
@@ -808,6 +830,7 @@ export default {
       trainingDialogVisible,
       jobDialogVisible,
       selectedJobTitle,
+      mobileMenuOpen,
       // 表单数据
       contactForm,
       trainingForm,
@@ -900,6 +923,52 @@ export default {
   background: var(--text-primary);
   margin: 3px 0;
   transition: 0.3s;
+}
+
+/* 移动端菜单样式 */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: var(--bg-secondary);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 2rem;
+    transition: left 0.3s ease;
+    z-index: 999;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .nav-menu-mobile {
+    left: 0;
+  }
+  
+  .nav-menu li {
+    margin: 1rem 0;
+  }
+  
+  .nav-menu a {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    display: block;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .nav-menu a:hover {
+    background: var(--accent-color);
+    color: white;
+  }
 }
 
 /* 英雄区域 */

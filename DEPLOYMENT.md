@@ -22,7 +22,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget git build-essential
 
 # 安装Node.js 18.x
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+curl -fsSL //deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # 验证安装
@@ -39,7 +39,7 @@ sudo yum update -y
 sudo yum install -y curl wget git gcc-c++ make
 
 # 安装Node.js 18.x
-curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
+curl -fsSL //rpm.nodesource.com/setup_18.x | sudo bash -
 sudo yum install -y nodejs
 
 # 验证安装
@@ -66,7 +66,7 @@ mkdir -p /home/whattech/apps
 cd /home/whattech/apps
 
 # 克隆Frontend项目
-git clone https://github.com/YeZ-whatdesign/website-frontend.git what-tech-frontend
+git clone //github.com/YeZ-whatdesign/website-frontend.git what-tech-frontend
 cd what-tech-frontend
 ```
 
@@ -85,7 +85,7 @@ nano .env.production
 
 ```env
 # API基础URL - 替换为实际的后端API地址
-VITE_API_BASE_URL=https://api.yourdomain.com
+VITE_API_BASE_URL=//api.yourdomain.com
 
 # 应用标题
 VITE_APP_TITLE=几何原本汽车设计
@@ -175,7 +175,7 @@ server {
 
     # API代理（如果需要）
     location /api/ {
-        proxy_pass https://api.yourdomain.com;
+        proxy_pass //api.yourdomain.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -262,7 +262,7 @@ server {
 server {
     listen 80;
     server_name yourdomain.com www.yourdomain.com;
-    return 301 https://$server_name$request_uri;
+    return 301 //$server_name$request_uri;
 }
 ```
 

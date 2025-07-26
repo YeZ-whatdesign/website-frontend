@@ -4,7 +4,9 @@
   "description": "几何原本汽车设计公司官网前端",
   "scripts": {
     "dev": "vite",
+    "dev:blog": "vite --config vite.blog.config.js",
     "build": "vite build",
+    "build:blog": "vite build --config vite.blog.config.js",
     "preview": "vite preview"
   },
   "dependencies": {

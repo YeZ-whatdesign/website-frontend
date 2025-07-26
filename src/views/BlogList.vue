@@ -4,13 +4,13 @@
     <nav class="navbar">
       <div class="nav-container">
         <div class="nav-brand">
-          <router-link to="/">
+          <a href="//what-tech.cn" target="_blank">
             <img src="/images/logo_horizontal.png" alt="What Tech" class="logo">
-          </router-link>
+          </a>
         </div>
-        <div class="nav-links">
-          <router-link to="/" class="nav-link">首页</router-link>
-          <router-link to="/blog" class="nav-link active">博客</router-link>
+      <div class="nav-links">
+        <a href="//what-tech.cn" class="nav-link">首页</a>
+          <router-link to="/" class="nav-link active">博客</router-link>
         </div>
       </div>
     </nav>
@@ -213,7 +213,12 @@ const handlePageChange = (page) => {
 }
 
 const goToBlogDetail = (id) => {
-  router.push(`/blog/${id}`)
+  // 检查当前是否在博客子域名下
+  if (window.location.hostname.startsWith('blog.')) {
+    router.push(`/${id}`)
+  } else {
+    router.push(`/blog/${id}`)
+  }
 }
 
 const formatDate = (dateString) => {

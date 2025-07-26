@@ -3,9 +3,16 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
+  root: '.',
+  build: {
+    outDir: 'dist-blog',
+    rollupOptions: {
+      input: './blog.html'
+    }
+  },
   server: {
-    port: 3000,
-    host: '0.0.0.0', // 允许外部访问
+    port: 3001,
+    host: '0.0.0.0',
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
@@ -14,14 +21,6 @@ export default defineConfig({
       '/uploads': {
         target: 'http://localhost:3001',
         changeOrigin: true
-      }
-    }
-  },
-  build: {
-    rollupOptions: {
-      input: {
-        main: './index.html',
-        blog: './blog.html'
       }
     }
   }

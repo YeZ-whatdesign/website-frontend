@@ -4,13 +4,13 @@
     <nav class="navbar">
       <div class="nav-container">
         <div class="nav-brand">
-          <router-link to="/">
+          <a href="//what-tech.cn" target="_blank">
             <img src="/images/logo_horizontal.png" alt="What Tech" class="logo">
-          </router-link>
+          </a>
         </div>
         <div class="nav-links">
-          <router-link to="/" class="nav-link">首页</router-link>
-          <router-link to="/blog" class="nav-link">博客</router-link>
+          <a href="//what-tech.cn" class="nav-link">首页</a>
+          <router-link to="/" class="nav-link">博客</router-link>
         </div>
       </div>
     </nav>
@@ -28,9 +28,9 @@
       <section class="blog-header">
         <div class="container">
           <div class="breadcrumb">
-            <router-link to="/">首页</router-link>
+            <a href="//what-tech.cn">首页</a>
             <span>/</span>
-            <router-link to="/blog">博客</router-link>
+            <router-link to="/">博客</router-link>
             <span>/</span>
             <span>{{ blog.title }}</span>
           </div>
@@ -307,11 +307,21 @@ const formatDate = (dateString) => {
 }
 
 const goToBlog = (id) => {
-  router.push(`/blog/${id}`)
+  // 检查当前是否在博客子域名下
+  if (window.location.hostname.startsWith('blog.')) {
+    router.push(`/${id}`)
+  } else {
+    router.push(`/blog/${id}`)
+  }
 }
 
 const goToBlogList = () => {
-  router.push('/blog')
+  // 检查当前是否在博客子域名下
+  if (window.location.hostname.startsWith('blog.')) {
+    router.push('/')
+  } else {
+    router.push('/blog')
+  }
 }
 
 const shareToWeChat = () => {
@@ -321,7 +331,7 @@ const shareToWeChat = () => {
 const shareToWeibo = () => {
   const url = window.location.href
   const title = blog.value.title
-  window.open(`https://service.weibo.com/share/share.php?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`)
+  window.open(`//service.weibo.com/share/share.php?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`)
 }
 
 const copyLink = async () => {
