@@ -1,4 +1,5 @@
 dist/
+dist-blog/
 yarn.lock
 npm-debug.log
 node_modules/
