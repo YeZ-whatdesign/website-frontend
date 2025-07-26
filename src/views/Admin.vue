@@ -162,6 +162,32 @@
             </el-table>
           </div>
         </el-tab-pane>
+
+        <!-- 求职申请 -->
+        <el-tab-pane label="求职申请" name="jobs">
+          <div class="jobs-management">
+            <h3>求职申请管理</h3>
+            <el-table :data="jobApplications" style="width: 100%">
+              <el-table-column prop="id" label="ID" width="80" />
+              <el-table-column prop="name" label="姓名" width="120" />
+              <el-table-column prop="email" label="邮箱" width="200" />
+              <el-table-column prop="phone" label="电话" width="150" />
+              <el-table-column prop="degree" label="学校专业" />
+              <el-table-column prop="position" label="申请职位" width="150" />
+              <el-table-column prop="message" label="个人简介" show-overflow-tooltip />
+              <el-table-column prop="created_at" label="申请时间" width="180">
+                <template #default="scope">
+                  {{ new Date(scope.row.created_at).toLocaleString('zh-CN') }}
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" width="100">
+                <template #default="scope">
+                  <el-button size="small" type="danger" @click="deleteJobApplication(scope.row.id)">删除</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </div>
 
@@ -236,6 +262,7 @@ const blogPagination = ref({
 
 const contacts = ref([])
 const trainingApplications = ref([])
+const jobApplications = ref([])
 
 const contentData = ref({
   hero: {
@@ -322,6 +349,7 @@ const loadData = () => {
   loadBlogPosts()
   loadContacts()
   loadTrainingApplications()
+  loadJobApplications()
   loadContent()
 }
 
@@ -350,6 +378,15 @@ const loadTrainingApplications = async () => {
     trainingApplications.value = response.data
   } catch (error) {
     ElMessage.error('加载培训报名失败')
+  }
+}
+
+const loadJobApplications = async () => {
+  try {
+    const response = await axios.get('/api/cms/job-applications')
+    jobApplications.value = response.data
+  } catch (error) {
+    ElMessage.error('加载求职申请失败')
   }
 }
 
@@ -440,6 +477,23 @@ const deleteTrainingApplication = async (id) => {
     await axios.delete(`/api/cms/training-applications/${id}`)
     ElMessage.success('删除成功')
     loadTrainingApplications()
+  } catch (error) {
+    if (error !== 'cancel') {
+      ElMessage.error('删除失败')
+    }
+  }
+}
+
+const deleteJobApplication = async (id) => {
+  try {
+    await ElMessageBox.confirm('确定要删除这条求职申请记录吗？', '确认删除', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+    await axios.delete(`/api/cms/job-applications/${id}`)
+    ElMessage.success('删除成功')
+    loadJobApplications()
   } catch (error) {
     if (error !== 'cancel') {
       ElMessage.error('删除失败')

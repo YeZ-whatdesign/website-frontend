@@ -15,7 +15,7 @@
           <li><a href="//blog.what-tech.cn" target="_blank" @click="mobileMenuOpen = false">博客</a></li>
           <li><a href="//forum.what-tech.cn" target="_blank" @click="mobileMenuOpen = false">论坛</a></li>
         </ul>
-        <div class="nav-toggle" @click="toggleMobileMenu">
+        <div class="nav-toggle" :class="{ 'active': mobileMenuOpen }" @click="toggleMobileMenu">
           <span></span>
           <span></span>
           <span></span>
@@ -260,17 +260,17 @@
           </div>
           <div class="contact-form">
             <h3>与我们联系</h3>
-            <el-form :model="contactForm" label-position="top">
-              <el-form-item label="姓名">
+            <el-form ref="contactFormRef" :model="contactForm" :rules="contactRules" label-position="top">
+              <el-form-item label="姓名" prop="name">
                 <el-input v-model="contactForm.name" placeholder="请输入您的姓名" />
               </el-form-item>
-              <el-form-item label="邮箱">
+              <el-form-item label="邮箱" prop="email">
                 <el-input v-model="contactForm.email" type="email" placeholder="请输入您的邮箱" />
               </el-form-item>
-              <el-form-item label="主题">
+              <el-form-item label="主题" prop="subject">
                 <el-input v-model="contactForm.subject" placeholder="请输入主题" />
               </el-form-item>
-              <el-form-item label="留言">
+              <el-form-item label="留言" prop="message">
                 <el-input v-model="contactForm.message" type="textarea" :rows="4" placeholder="请输入您的留言" />
               </el-form-item>
               <el-form-item>
@@ -297,21 +297,18 @@
 
     <!-- 培训报名弹窗 -->
     <el-dialog v-model="trainingDialogVisible" title="培训报名" width="500px">
-      <el-form :model="trainingForm" label-position="top">
-        <el-form-item label="姓名">
+      <el-form ref="trainingFormRef" :model="trainingForm" :rules="trainingRules" label-position="top">
+        <el-form-item label="姓名" prop="name">
           <el-input v-model="trainingForm.name" placeholder="请输入您的姓名" />
         </el-form-item>
-        <el-form-item label="学校及专业">
+        <el-form-item label="学校及专业" prop="degree">
           <el-input v-model="trainingForm.degree" placeholder="请输入学校及专业" />
         </el-form-item>
-        <el-form-item label="移动电话">
+        <el-form-item label="移动电话" prop="phone">
           <el-input v-model="trainingForm.phone" placeholder="请输入手机号码" />
         </el-form-item>
-        <el-form-item label="邮箱">
+        <el-form-item label="邮箱" prop="email">
           <el-input v-model="trainingForm.email" type="email" placeholder="请输入邮箱" />
-        </el-form-item>
-        <el-form-item label="职位意向及其他信息">
-          <el-input v-model="trainingForm.message" type="textarea" :rows="4" placeholder="请输入职位意向、工作经历等信息" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -322,21 +319,26 @@
 
     <!-- 求职申请对话框 -->
     <el-dialog v-model="jobDialogVisible" :title="`申请职位：${selectedJobTitle}`" width="500px">
-      <el-form :model="jobForm" label-position="top">
-        <el-form-item label="姓名">
+      <el-form ref="jobFormRef" :model="jobForm" :rules="jobRules" label-position="top">
+        <el-form-item label="姓名" prop="name">
           <el-input v-model="jobForm.name" placeholder="请输入您的姓名" />
         </el-form-item>
-        <el-form-item label="学校及专业">
+        <el-form-item label="学校及专业" prop="degree">
           <el-input v-model="jobForm.degree" placeholder="请输入学校及专业" />
         </el-form-item>
-        <el-form-item label="移动电话">
+        <el-form-item label="移动电话" prop="phone">
           <el-input v-model="jobForm.phone" placeholder="请输入手机号码" />
         </el-form-item>
-        <el-form-item label="邮箱">
+        <el-form-item label="邮箱" prop="email">
           <el-input v-model="jobForm.email" type="email" placeholder="请输入邮箱" />
         </el-form-item>
-        <el-form-item label="自我介绍">
-          <el-input v-model="jobForm.message" type="textarea" :rows="4" placeholder="请简单介绍一下您的经验和技能" />
+        <el-form-item label="个人简介" prop="message">
+          <el-input 
+            v-model="jobForm.message" 
+            type="textarea" 
+            :rows="4"
+            placeholder="请简要介绍您的工作经验、技能特长等（选填）" 
+          />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -375,6 +377,72 @@ export default {
     // 滚动动画相关
     let observer = null
     
+    // 表单引用
+    const contactFormRef = ref(null)
+    const trainingFormRef = ref(null)
+    const jobFormRef = ref(null)
+
+    // 表单校验规则
+    const contactRules = reactive({
+      name: [
+        { required: true, message: '请输入您的姓名', trigger: 'blur' },
+        { min: 2, max: 20, message: '姓名长度在 2 到 20 个字符', trigger: 'blur' }
+      ],
+      email: [
+        { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+        { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+      ],
+      subject: [
+        { required: true, message: '请输入主题', trigger: 'blur' },
+        { min: 2, max: 50, message: '主题长度在 2 到 50 个字符', trigger: 'blur' }
+      ],
+      message: [
+        { required: true, message: '请输入留言内容', trigger: 'blur' },
+        { min: 10, max: 500, message: '留言内容在 10 到 500 个字符', trigger: 'blur' }
+      ]
+    })
+
+    const trainingRules = reactive({
+      name: [
+        { required: true, message: '请输入您的姓名', trigger: 'blur' },
+        { min: 2, max: 20, message: '姓名长度在 2 到 20 个字符', trigger: 'blur' }
+      ],
+      degree: [
+        { required: true, message: '请输入学校及专业', trigger: 'blur' },
+        { min: 2, max: 100, message: '学校及专业长度在 2 到 100 个字符', trigger: 'blur' }
+      ],
+      phone: [
+        { required: true, message: '请输入手机号码', trigger: 'blur' },
+        { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码', trigger: 'blur' }
+      ],
+      email: [
+        { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+        { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+      ]
+    })
+
+    const jobRules = reactive({
+      name: [
+        { required: true, message: '请输入您的姓名', trigger: 'blur' },
+        { min: 2, max: 20, message: '姓名长度在 2 到 20 个字符', trigger: 'blur' }
+      ],
+      degree: [
+        { required: true, message: '请输入学校及专业', trigger: 'blur' },
+        { min: 2, max: 100, message: '学校及专业长度在 2 到 100 个字符', trigger: 'blur' }
+      ],
+      phone: [
+        { required: true, message: '请输入手机号码', trigger: 'blur' },
+        { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码', trigger: 'blur' }
+      ],
+      email: [
+        { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+        { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+      ],
+      message: [
+        { max: 500, message: '个人简介不能超过 500 个字符', trigger: 'blur' }
+      ]
+    })
+    
     // 表单数据
     const contactForm = reactive({
       name: '',
@@ -387,8 +455,7 @@ export default {
       name: '',
       degree: '',
       phone: '',
-      email: '',
-      message: ''
+      email: ''
     })
 
     const jobForm = reactive({
@@ -650,34 +717,76 @@ export default {
     }
 
     const submitContact = async () => {
+      if (!contactFormRef.value) return
+      
       try {
+        // 先进行表单校验
+        await contactFormRef.value.validate()
+        
+        // 校验通过后提交数据
         await axios.post('/api/contact', contactForm)
         ElMessage.success('消息发送成功！')
-        Object.keys(contactForm).forEach(key => contactForm[key] = '')
+        
+        // 重置表单
+        contactFormRef.value.resetFields()
       } catch (error) {
-        ElMessage.error('发送失败，请稍后重试')
+        if (error.name === 'ValidationError' || error.errors) {
+          // 表单校验失败
+          ElMessage.error('请检查表单填写是否正确')
+        } else {
+          // 提交失败
+          ElMessage.error('发送失败，请稍后重试')
+        }
       }
     }
 
     const submitTraining = async () => {
+      if (!trainingFormRef.value) return
+      
       try {
+        // 先进行表单校验
+        await trainingFormRef.value.validate()
+        
+        // 校验通过后提交数据
         await axios.post('/api/training', trainingForm)
         ElMessage.success('报名提交成功！')
         trainingDialogVisible.value = false
-        Object.keys(trainingForm).forEach(key => trainingForm[key] = '')
+        
+        // 重置表单
+        trainingFormRef.value.resetFields()
       } catch (error) {
-        ElMessage.error('提交失败，请稍后重试')
+        if (error.name === 'ValidationError' || error.errors) {
+          // 表单校验失败
+          ElMessage.error('请检查表单填写是否正确')
+        } else {
+          // 提交失败
+          ElMessage.error('提交失败，请稍后重试')
+        }
       }
     }
 
     const submitJob = async () => {
+      if (!jobFormRef.value) return
+      
       try {
+        // 先进行表单校验
+        await jobFormRef.value.validate()
+        
+        // 校验通过后提交数据
         await axios.post('/api/jobs', jobForm)
         ElMessage.success('求职申请提交成功！')
         jobDialogVisible.value = false
-        Object.keys(jobForm).forEach(key => jobForm[key] = '')
+        
+        // 重置表单
+        jobFormRef.value.resetFields()
       } catch (error) {
-        ElMessage.error('提交失败，请稍后重试')
+        if (error.name === 'ValidationError' || error.errors) {
+          // 表单校验失败
+          ElMessage.error('请检查表单填写是否正确')
+        } else {
+          // 提交失败
+          ElMessage.error('提交失败，请稍后重试')
+        }
       }
     }
 
@@ -831,10 +940,18 @@ export default {
       jobDialogVisible,
       selectedJobTitle,
       mobileMenuOpen,
+      // 表单引用
+      contactFormRef,
+      trainingFormRef,
+      jobFormRef,
       // 表单数据
       contactForm,
       trainingForm,
       jobForm,
+      // 表单校验规则
+      contactRules,
+      trainingRules,
+      jobRules,
       // 页面数据
       heroData,
       aboutData,
@@ -860,6 +977,38 @@ export default {
 </script>
 
 <style scoped>
+/* CSS变量定义 */
+:root {
+  --primary-color: #1a1a1a;
+  --bg-secondary: rgba(255, 255, 255, 0.95);
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --accent-color: #29abc1;
+  --border-color: #e0e0e0;
+}
+
+/* 暗色主题 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #ffffff;
+    --bg-secondary: rgba(45, 45, 45, 0.95);
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --accent-color: #29abc1;
+    --border-color: #404040;
+  }
+}
+
+/* 动画定义 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* 导航栏样式 */
 .navbar {
   position: fixed;
@@ -915,6 +1064,13 @@ export default {
   display: none;
   flex-direction: column;
   cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-toggle:hover {
+  background-color: rgba(41, 171, 193, 0.1);
 }
 
 .nav-toggle span {
@@ -922,16 +1078,31 @@ export default {
   height: 3px;
   background: var(--text-primary);
   margin: 3px 0;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* 汉堡包图标动画 */
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
 }
 
 /* 移动端菜单样式 */
 @media (max-width: 768px) {
   .nav-toggle {
-    display: flex;
+    display: flex !important;
   }
   
   .nav-menu {
+    display: flex !important;
     position: fixed;
     top: 70px;
     left: -100%;
@@ -946,14 +1117,16 @@ export default {
     transition: left 0.3s ease;
     z-index: 999;
     border-top: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
   
   .nav-menu-mobile {
-    left: 0;
+    left: 0 !important;
   }
   
   .nav-menu li {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
+    width: 90%;
   }
   
   .nav-menu a {
@@ -962,12 +1135,30 @@ export default {
     display: block;
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
   }
   
   .nav-menu a:hover {
     background: var(--accent-color);
     color: white;
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(41, 171, 193, 0.3);
+  }
+  
+  /* 移动端菜单遮罩 */
+  .nav-menu-mobile::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    animation: fadeIn 0.3s ease;
   }
 }
 
@@ -1339,36 +1530,92 @@ section h2 {
 .services-content-simple {
   margin-top: 3rem;
   text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* PC端四列并列展示 */
+@media (min-width: 1200px) {
+  .services-content-simple {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* 大屏幕三列展示 */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .services-content-simple {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* 平板端两列展示 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .services-content-simple {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* 手机端单列展示 */
+@media (max-width: 767px) {
+  .services-content-simple {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 }
 
 .service-simple-item {
-  margin-bottom: 3rem;
-  padding: 2rem 0;
+  margin-bottom: 0;
+  padding: 1.5rem 1rem;
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--shadow-dark);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.service-simple-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .service-simple-item img {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   margin-bottom: 1rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  transition: transform 0.3s ease;
+}
+
+.service-simple-item:hover img {
+  transform: scale(1.1);
 }
 
 .service-simple-item h3 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: var(--text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   font-weight: 600;
+  line-height: 1.3;
 }
 
 .service-simple-item p {
   color: var(--text-secondary);
-  line-height: 1.8;
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  line-height: 1.6;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0 0.5rem;
+  flex-grow: 1;
 }
 
 /* 产品展示 */
