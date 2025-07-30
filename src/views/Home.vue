@@ -12,8 +12,8 @@
           <li><a href="#cases" @click="scrollToSection('cases'); mobileMenuOpen = false">客户案例</a></li>
           <li><a href="#training" @click="scrollToSection('training'); mobileMenuOpen = false">培训服务</a></li>
           <li><a href="#contact" @click="scrollToSection('contact'); mobileMenuOpen = false">联系我们</a></li>
-          <li><a href="//blog.what-tech.cn" target="_blank" @click="mobileMenuOpen = false">博客</a></li>
-          <li><a href="//forum.what-tech.cn" target="_blank" @click="mobileMenuOpen = false">论坛</a></li>
+          <li><a href="//www.what-tech.cn/blog" target="_blank" @click="mobileMenuOpen = false">博客</a></li>
+          <li><a href="//www.what-tech.cn/forum" target="_blank" @click="mobileMenuOpen = false">论坛</a></li>
         </ul>
         <div class="nav-toggle" :class="{ 'active': mobileMenuOpen }" @click="toggleMobileMenu">
           <span></span>
@@ -793,7 +793,7 @@ export default {
     // 博客跳转方法
     const goToBlogList = () => {
       // router.push('/blog')
-      window.open('//blog.what-tech.cn')
+      window.open('//www.what-tech.cn/blog')
     }
 
     const goToBlogDetail = (id) => {
