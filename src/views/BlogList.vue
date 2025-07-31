@@ -317,7 +317,6 @@ onMounted(() => {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
 }
 
 /* 博客列表区域 */
@@ -344,7 +343,7 @@ onMounted(() => {
 .blog-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1rem;
   margin-bottom: 3rem;
   max-width: 1200px;
   margin-left: auto;
