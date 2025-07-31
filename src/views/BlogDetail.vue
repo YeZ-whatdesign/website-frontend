@@ -10,7 +10,7 @@
         </div>
         <div class="nav-links">
           <a href="//what-tech.cn" class="nav-link">首页</a>
-          <router-link to="/" class="nav-link">博客</router-link>
+          <router-link to="//what-tech.cn/blog/" class="nav-link">博客</router-link>
         </div>
       </div>
     </nav>
