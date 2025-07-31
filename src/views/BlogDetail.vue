@@ -9,8 +9,8 @@
           </a>
         </div>
         <div class="nav-links">
-          <a href="//what-tech.cn" class="nav-link">首页</a>
-          <router-link to="//what-tech.cn/blog/" class="nav-link">博客</router-link>
+          <a href="https://what-tech.cn" class="nav-link">首页</a>
+          <a href="https://what-tech.cn/blog" class="nav-link">博客</a>
         </div>
       </div>
     </nav>
@@ -28,9 +28,9 @@
       <section class="blog-header">
         <div class="container">
           <div class="breadcrumb">
-            <a href="//what-tech.cn">首页</a>
+            <a href="https://what-tech.cn">首页</a>
             <span>/</span>
-            <router-link to="/">博客</router-link>
+            <a href="https://what-tech.cn/blog">博客</a>
             <span>/</span>
             <span>{{ blog.title }}</span>
           </div>
