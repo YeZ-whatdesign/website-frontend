@@ -81,7 +81,18 @@
     <!-- 页脚 -->
     <footer class="footer">
       <div class="container">
-        <p>&copy; 2024 What Tech. 保留所有权利。</p>
+        <div class="footer-info">
+          <p>&copy; 2024 What Tech. 保留所有权利。</p>
+          <div class="footer-beian">
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+              沪ICP备20003145号-2
+            </a>
+            <span class="beian-separator">|</span>
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+              工信部备案管理系统
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   </div>
@@ -424,6 +435,43 @@ onMounted(() => {
   padding: 2rem 0;
   text-align: center;
   color: var(--text-secondary);
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-info p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.footer-beian {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-beian a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-beian a:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+.beian-separator {
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
 /* 响应式设计 */
