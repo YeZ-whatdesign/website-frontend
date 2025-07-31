@@ -166,7 +166,21 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { marked } from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/github.css'
 import axios from 'axios'
+
+// 配置marked
+marked.setOptions({
+  highlight: function(code, lang) {
+    const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+    return hljs.highlight(code, { language }).value
+  },
+  langPrefix: 'hljs language-',
+  breaks: true,
+  gfm: true
+})
 
 const router = useRouter()
 const route = useRoute()
@@ -177,11 +191,8 @@ const loading = ref(true)
 const formattedContent = computed(() => {
   if (!blog.value?.content) return ''
   
-  // 简单的内容格式化，将换行转换为段落
-  return blog.value.content
-    .split('\n\n')
-    .map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`)
-    .join('')
+  // 使用marked渲染Markdown内容
+  return marked(blog.value.content)
 })
 
 const loadBlog = async () => {
@@ -211,81 +222,6 @@ const loadBlog = async () => {
   } catch (error) {
     console.error('加载博客失败:', error)
     console.error('错误详情:', error.response?.data || error.message)
-    
-    // 使用默认数据进行演示
-    const blogId = parseInt(route.params.id)
-    const defaultBlogs = [
-      {
-        id: 1,
-        title: '数据建模最佳实践',
-        content: `数据建模是现代企业数字化转型的核心环节。一个优秀的数据模型不仅能够准确反映业务需求，还能为后续的数据分析和决策提供坚实的基础。
-
-在进行数据建模时，我们需要遵循以下几个核心原则：
-
-1. **业务导向**：数据模型必须紧密结合业务需求，确保每个数据实体和属性都有明确的业务含义。
-
-2. **标准化设计**：采用标准的建模方法和规范，确保模型的一致性和可维护性。
-
-3. **性能优化**：在满足业务需求的前提下，优化模型结构以提升查询性能。
-
-4. **扩展性考虑**：设计时要考虑未来业务发展的需要，确保模型具有良好的扩展性。
-
-通过遵循这些原则，我们可以构建出高质量的数据模型，为企业的数据驱动决策提供有力支撑。`,
-        image: '/images/modeler.jpg',
-        created_at: new Date().toISOString(),
-        author: '技术团队',
-        tags: ['数据建模', '最佳实践', '企业架构']
-      },
-      {
-        id: 2,
-        title: '全栈开发技术栈选择',
-        content: `在当今快速发展的技术环境中，选择合适的全栈开发技术栈对项目成功至关重要。
-
-前端技术选择：
-- React/Vue.js：现代化的前端框架
-- TypeScript：提供类型安全
-- Tailwind CSS：快速样式开发
-
-后端技术选择：
-- Node.js/Python：高效的后端开发
-- Express/FastAPI：轻量级框架
-- PostgreSQL/MongoDB：数据存储方案
-
-通过合理的技术栈组合，可以大大提升开发效率和项目质量。`,
-        image: '/images/developer.jpg',
-        created_at: new Date().toISOString(),
-        author: '开发团队',
-        tags: ['全栈开发', '技术栈', '前端', '后端']
-      },
-      {
-        id: 3,
-        title: '数据可视化设计原则',
-        content: `数据可视化是将复杂数据转化为直观图表的艺术与科学。
-
-核心设计原则：
-1. 清晰性：确保图表传达的信息清晰明了
-2. 准确性：数据表示必须准确无误
-3. 美观性：良好的视觉设计提升用户体验
-4. 交互性：适当的交互增强数据探索能力
-
-选择合适的图表类型对于有效的数据可视化至关重要。`,
-        image: '/images/visualization.jpg',
-        created_at: new Date().toISOString(),
-        author: '设计团队',
-        tags: ['数据可视化', '设计原则', 'UI/UX']
-      }
-    ]
-    
-    const foundBlog = defaultBlogs.find(b => b.id === blogId)
-    if (foundBlog) {
-      blog.value = foundBlog
-      console.log('使用默认博客数据:', blog.value)
-      // 设置相关文章
-      relatedBlogs.value = defaultBlogs.filter(b => b.id !== blogId).slice(0, 3)
-    } else {
-      blog.value = null
-      console.log('未找到对应的默认博客数据')
-    }
   } finally {
     loading.value = false
   }
@@ -494,9 +430,9 @@ onMounted(() => {
 }
 
 .content {
+  margin-bottom: 2rem;
   line-height: 1.8;
-  font-size: 1.1rem;
-  margin-bottom: 3rem;
+  color: white;
 }
 
 .content :deep(p) {
@@ -678,6 +614,231 @@ onMounted(() => {
   font-size: 0.9rem;
 }
 
+/* 代码高亮样式 */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+  background: #f8f9fa !important;
+  border-radius: 8px;
+  margin: 1em 0;
+  border: 1px solid #e9ecef;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #6a737d;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #d73a49;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #005cc5;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #032f62;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #6f42c1;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title,
+.hljs-tag,
+.hljs-regexp,
+.hljs-link {
+  color: #22863a;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #e36209;
+}
+
+.hljs-meta,
+.hljs-deletion {
+  color: #b31d28;
+}
+
+.hljs-addition {
+  color: #22863a;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* Markdown 样式增强 */
+.content :deep(h1) {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem 0;
+  color: var(--accent-color);
+  border-bottom: 3px solid var(--accent-color);
+  padding-bottom: 0.5rem;
+}
+
+.content :deep(h2) {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1.5rem 0 1rem 0;
+  color: white;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.3rem;
+}
+
+.content :deep(h3) {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.2rem 0 0.8rem 0;
+  color: white;
+}
+
+.content :deep(h4) {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem 0;
+  color: white;
+}
+
+.content :deep(p) {
+  margin: 1rem 0;
+  line-height: 1.8;
+  color: white;
+}
+
+.content :deep(ul), .content :deep(ol) {
+  margin: 1rem 0;
+  padding-left: 2rem;
+  color: white;
+}
+
+.content :deep(li) {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: white;
+}
+
+.content :deep(blockquote) {
+  border-left: 4px solid #3182ce;
+  background: rgba(247, 250, 252, 0.1);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: white;
+}
+
+.content :deep(blockquote p) {
+  margin: 0;
+  color: white;
+}
+
+.content :deep(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.content :deep(th),
+.content :deep(td) {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem;
+  text-align: left;
+  color: white;
+}
+
+.content :deep(th) {
+  background: rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.content :deep(tr:nth-child(even)) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.content :deep(tr:hover) {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.content :deep(code) {
+  background: #f1f5f9 !important;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: 0.9em;
+  color: #e53e3e;
+  border: 1px solid #e2e8f0;
+}
+
+.content :deep(pre) {
+  background: #f8f9fa !important;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.content :deep(pre code) {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: 0.9rem;
+}
+
+.content :deep(strong) {
+  font-weight: 600;
+  color: white;
+}
+
+.content :deep(em) {
+  font-style: italic;
+  color: white;
+}
+
+.content :deep(a) {
+  color: #3182ce;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.content :deep(a:hover) {
+  border-bottom-color: #3182ce;
+}
+
 /* 响应式设计 */
 @media (max-width: 1024px) {
   .blog-layout {
@@ -713,6 +874,32 @@ onMounted(() => {
   
   .share-buttons {
     justify-content: center;
+  }
+  
+  .content :deep(h1) {
+    font-size: 2rem;
+  }
+  
+  .content :deep(h2) {
+    font-size: 1.5rem;
+  }
+  
+  .content :deep(h3) {
+    font-size: 1.25rem;
+  }
+  
+  .content :deep(pre) {
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .content :deep(table) {
+    font-size: 0.9rem;
+  }
+  
+  .content :deep(th),
+  .content :deep(td) {
+    padding: 0.5rem;
   }
 }
 </style>

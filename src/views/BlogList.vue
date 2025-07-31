@@ -147,36 +147,6 @@ const loadBlogs = async () => {
       }))
       totalBlogs.value = response.data.total || blogs.value.length
       console.log('博客数据加载成功:', blogs.value)
-    } else {
-      console.log('API返回失败状态')
-      // 使用默认数据
-      blogs.value = [
-        {
-          id: 1,
-          title: '数据建模最佳实践',
-          excerpt: '探讨现代数据建模的核心原则和实践方法，帮助企业构建高效的数据架构...',
-          image: '/images/modeler.jpg',
-          created_at: new Date().toISOString(),
-          author: '技术团队'
-        },
-        {
-          id: 2,
-          title: '全栈开发技术栈选择',
-          excerpt: '分析当前主流的全栈开发技术栈，为项目选择最适合的技术组合...',
-          image: '/images/developer.jpg',
-          created_at: new Date().toISOString(),
-          author: '开发团队'
-        },
-        {
-          id: 3,
-          title: '数据可视化设计原则',
-          excerpt: '深入了解数据可视化的设计原则，创建更有效的数据展示方案...',
-          image: '/images/visualization.jpg',
-          created_at: new Date().toISOString(),
-          author: '设计团队'
-        }
-      ]
-      totalBlogs.value = blogs.value.length
     }
   } catch (error) {
     console.error('加载博客失败:', error)
