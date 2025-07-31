@@ -855,32 +855,6 @@ export default {
       } catch (error) {
         console.log('加载博客数据失败，使用默认数据')
         // 如果API失败，使用默认数据
-        blogData.value = [
-          {
-            id: 1,
-            title: '汽车设计的未来趋势',
-            excerpt: '探讨电动汽车时代的设计理念和技术创新...',
-            image: '/images/modeler.jpg',
-            date: '2024-01-15',
-            author: '设计团队'
-          },
-          {
-            id: 2,
-            title: 'Class-A曲面建模技巧',
-            excerpt: '分享专业的曲面建模方法和实战经验...',
-            image: '/images/developer.jpg',
-            date: '2024-01-10',
-            author: '技术团队'
-          },
-          {
-            id: 3,
-            title: '实时渲染在汽车展示中的应用',
-            excerpt: '介绍最新的实时渲染技术在汽车营销中的应用...',
-            image: '/images/visualization.jpg',
-            date: '2024-01-05',
-            author: '可视化团队'
-          }
-        ]
       }
     }
 
